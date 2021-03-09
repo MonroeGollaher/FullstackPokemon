@@ -1,0 +1,16 @@
+
+  {
+    "name": "vuepokemon",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:client && npm run setup:server && npm run build:client",
+      "setup:client": "cd vuepokemon.client && npm i",
+      "setup:server": "cd vuepokemon.server && npm i",
+      "build:client": "npm run --prefix vuepokemon.client build",
+      "start": "node vuepokemon.server/index.js"
+    },
+    "engines": {
+      "node": "^14.15.4"
+    }
+  }
+  
