@@ -6,8 +6,12 @@ class PokemonService {
   async getPokemon() {
     try {
       const res = await pokeApi.get()
-      AppState.pokemon = res.data.results
-      // console.log(res.data.results, 'pokemon')
+      const pokemon = await Promise.all(res.data.results.map(async p => {
+        const pokeRecord = await pokeApi.get(p.url)
+        return pokeRecord
+      }))
+      console.log(pokemon)
+      AppState.pokemon = pokemon
     } catch (error) {
       logger.error(error)
     }
