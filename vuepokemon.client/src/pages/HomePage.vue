@@ -1,6 +1,8 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <pokemon-component v-for="p in pokemon" :key="p" :poke-prop="p" />
+  <div class="home container-fluid">
+    <div class="row justify-content-center">
+      <pokemon-component v-for="p in pokemon" :key="p" :poke-prop="p" />
+    </div>
   </div>
 </template>
 
@@ -25,12 +27,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home{
-  text-align: center;
+.home {
+  margin: 0;
   user-select: none;
-  > img{
-    height: 200px;
-    width: 200px;
-  }
+  background: linear-gradient(to right, #c9ffbf, #ffafbd);
 }
 </style>
