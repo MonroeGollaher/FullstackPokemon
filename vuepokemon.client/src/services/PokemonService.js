@@ -1,4 +1,4 @@
-import { pokeApi } from './AxiosService'
+import { pokeApi, api } from './AxiosService'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 
@@ -12,6 +12,26 @@ class PokemonService {
       }))
       console.log(pokemon)
       AppState.pokemon = pokemon
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async addToCollection(pokemon, id) {
+    try {
+      pokemon.id = id
+      const res = await api.post('/api/mypokemon/', pokemon)
+      AppState.userPokemon = res.data
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async getUserPokemon() {
+    try {
+      const res = await api.get('/api/mypokemon')
+      console.log(res.data)
+      AppState.userPokemon = res.data
     } catch (error) {
       logger.error(error)
     }

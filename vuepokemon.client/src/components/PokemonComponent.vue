@@ -12,6 +12,21 @@
         </div>
         <div class="back-card">
           <div class="stats">
+            <button
+              @click="addToCollection(pokemon.data, pokemon.data.id)"
+              :style="'background-color: '+bgColor()+''"
+              class="btn rounded-pill text-light"
+            >
+              Add to Collection
+            </button>
+            <div class="bar">
+              <p class="bar-name"></p>
+              <!-- <div class="bar-wrap">
+                <div class="points" :style="'width: '+pokemon.data.stats.map(s => s.base_stat)+''">
+                </div>
+              </div>
+              <span><p>{{ pokemon.data.stats.map(s => s.base_stat) }}</p></span> -->
+            </div>
           </div>
         </div>
       </div>
@@ -20,14 +35,21 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
+import { pokemonService } from '../services/PokemonService'
 export default {
   name: 'PokemonComponent',
   props: {
     pokeProp: Object
   },
   setup(props) {
+    const state = reactive({
+      query: {
+        name: ''
+      }
+    })
     return {
+      state,
       bgColor() {
         const bgColor = {
           normal: '#BDBDAF',
@@ -59,10 +81,14 @@ export default {
         }
         return color
       },
+      addToCollection(pokemon, id) {
+        pokemonService.addToCollection(pokemon, id)
+        console.log(pokemon, id)
+      },
       pokemon: computed(() => props.pokeProp)
     }
   },
-  components: {}
+  components: { }
 }
 </script>
 
@@ -157,5 +183,38 @@ export default {
   padding: 0.5rem;
   border-radius: 10px;
   margin-top: 10px;
+}
+
+// STATS
+.bar {
+  padding: 0 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  color: white;
+  width: 90%;
+}
+
+.bar p,
+span {
+  font-size: 12px;
+  width: 50px;
+  text-transform: capitalize;
+}
+
+.bar-wrap {
+  background-color: rgb(241, 150, 134);
+  width: 100px;
+  height: 8px;
+  position: relative;
+}
+
+.points {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 70%;
+  background-color: rgb(209, 77, 54);
 }
 </style>
