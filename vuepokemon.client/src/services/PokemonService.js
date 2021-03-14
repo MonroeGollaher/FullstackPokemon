@@ -30,7 +30,6 @@ class PokemonService {
   async getUserPokemon() {
     try {
       const res = await api.get('/api/mypokemon')
-      console.log(res.data)
       AppState.userPokemon = res.data
     } catch (error) {
       logger.error(error)

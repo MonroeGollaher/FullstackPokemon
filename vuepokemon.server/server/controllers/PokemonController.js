@@ -22,10 +22,7 @@ export class PokemonController extends BaseController {
 
   async getUserPokemon(req, res, next) {
     try {
-      // const creatorId = req.userInfo.id
-      // const pokemon = await pokemonService.getUserPokemon(creatorId)
       res.send(await pokemonService.getUserPokemon(req.userInfo))
-      // res.send(pokemon)
     } catch (error) {
       next(error)
     }

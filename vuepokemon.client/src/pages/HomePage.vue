@@ -47,9 +47,6 @@ export default {
     })
     return {
       state,
-      search() {
-
-      },
       pokemon: computed(() => AppState.pokemon.filter(p => p.data.name.toLowerCase().includes(state.query.name.toLowerCase())))
     }
   }
@@ -58,7 +55,6 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  margin: 0;
   user-select: none;
   background: linear-gradient(to right, #c9ffbf, #ffafbd);
 }

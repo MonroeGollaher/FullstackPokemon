@@ -22,11 +22,6 @@
             Home
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
-          </router-link>
-        </li>
       </ul>
       <span class="navbar-text">
         <button
@@ -46,7 +41,7 @@
               :src="user.picture"
               alt="user photo"
               height="40"
-              class="rounded"
+              class="rounded-circle"
             />
             <span class="mx-3">{{ user.name }}</span>
           </div>
@@ -98,6 +93,12 @@ export default {
 </script>
 
 <style scoped>
+.navbar {
+  margin: 0;
+  user-select: none;
+  background: linear-gradient(to right, #c9ffbf, #ffafbd);
+}
+
 .dropdown-menu {
   user-select: none;
   display: block;
