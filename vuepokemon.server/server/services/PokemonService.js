@@ -9,7 +9,7 @@ class PokemonService {
 
   async getUserPokemon(userInfo) {
     try {
-      const pokemon = await dbContext.Pokemon.find({ creatorId: userInfo.id })
+      const pokemon = await dbContext.Pokemon.find({ ownerId: userInfo.id })
       return pokemon
     } catch (error) {
       console.error(error)
