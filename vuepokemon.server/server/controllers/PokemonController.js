@@ -9,6 +9,7 @@ export class PokemonController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserPokemon)
       .post('', this.addtoCollection)
+      .delete('/:id', this.removeFromCollection)
   }
 
   async addtoCollection(req, res, next) {
@@ -23,6 +24,14 @@ export class PokemonController extends BaseController {
   async getUserPokemon(req, res, next) {
     try {
       res.send(await pokemonService.getUserPokemon(req.userInfo))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async removeFromCollection(req, res, next) {
+    try {
+      res.send(await pokemonService.removeFromCollection(req.params.id))
     } catch (error) {
       next(error)
     }

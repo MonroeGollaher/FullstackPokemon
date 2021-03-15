@@ -15,6 +15,11 @@ class PokemonService {
       console.error(error)
     }
   }
+
+  async removeFromCollection(id) {
+    const removed = await dbContext.Pokemon.findByIdAndDelete(id)
+    return removed
+  }
 }
 
 export const pokemonService = new PokemonService()

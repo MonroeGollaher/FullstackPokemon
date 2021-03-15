@@ -22,6 +22,7 @@ class PokemonService {
       pokemon.id = id
       const res = await api.post('/api/mypokemon/', pokemon)
       AppState.userPokemon = res.data
+      this.getUserPokemon()
     } catch (error) {
       logger.error(error)
     }
@@ -30,7 +31,17 @@ class PokemonService {
   async getUserPokemon() {
     try {
       const res = await api.get('/api/mypokemon')
+      console.log('yser pokemon', res.data)
       AppState.userPokemon = res.data
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async removeFromCollection(id) {
+    try {
+      await api.delete('/api/mypokemon/' + id)
+      this.getUserPokemon()
     } catch (error) {
       logger.error(error)
     }
