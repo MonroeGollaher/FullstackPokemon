@@ -25,6 +25,9 @@
       <pokemon-component v-for="p in pokemon" :key="p" :poke-prop="p" />
     </div>
     <div class="row">
+      <button class="btn" @click="previous()">
+        Previous
+      </button>
       <button class="btn" @click="next()">
         Next
       </button>
@@ -59,6 +62,17 @@ export default {
 
         const next = await pokeApi.get(nextUrl)
         const pokemon = await Promise.all(next.data.results.map(async p => {
+          const pokeRecord = await pokeApi.get(p.url)
+          return pokeRecord
+        }))
+        AppState.pokemon = pokemon
+      },
+      async previous() {
+        const res = await pokeApi.get()
+        const prevUrl = res.data.previous
+
+        const previous = await pokeApi.get(prevUrl)
+        const pokemon = await Promise.all(previous.data.results.map(async p => {
           const pokeRecord = await pokeApi.get(p.url)
           return pokeRecord
         }))
