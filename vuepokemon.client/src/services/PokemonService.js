@@ -10,7 +10,6 @@ class PokemonService {
         const pokeRecord = await pokeApi.get(p.url)
         return pokeRecord
       }))
-      console.log(pokemon)
       AppState.pokemon = pokemon
     } catch (error) {
       logger.error(error)
@@ -31,7 +30,6 @@ class PokemonService {
   async getUserPokemon() {
     try {
       const res = await api.get('/api/mypokemon')
-      console.log('yser pokemon', res.data)
       AppState.userPokemon = res.data
     } catch (error) {
       logger.error(error)

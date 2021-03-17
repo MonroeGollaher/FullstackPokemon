@@ -24,6 +24,11 @@
     <div class="row justify-content-center">
       <pokemon-component v-for="p in pokemon" :key="p" :poke-prop="p" />
     </div>
+    <div class="row">
+      <button class="btn" @click="next()">
+        Next
+      </button>
+    </div>
   </div>
 </template>
 
@@ -32,6 +37,7 @@ import { computed, onMounted, reactive } from 'vue'
 import PokemonComponent from '../components/PokemonComponent'
 import { pokemonService } from '../services/PokemonService'
 import { AppState } from '../AppState'
+import { pokeApi } from '../services/AxiosService'
 
 export default {
   name: 'Home',
@@ -47,6 +53,17 @@ export default {
     })
     return {
       state,
+      async next() {
+        const res = await pokeApi.get()
+        const nextUrl = res.data.next
+
+        const next = await pokeApi.get(nextUrl)
+        const pokemon = await Promise.all(next.data.results.map(async p => {
+          const pokeRecord = await pokeApi.get(p.url)
+          return pokeRecord
+        }))
+        AppState.pokemon = pokemon
+      },
       pokemon: computed(() => AppState.pokemon.filter(p => p.data.name.toLowerCase().includes(state.query.name.toLowerCase())))
     }
   }

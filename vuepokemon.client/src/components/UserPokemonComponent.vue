@@ -78,7 +78,6 @@ export default {
         pokemonService.addToCollection(pokemon, id)
       },
       removeFromCollection(id) {
-        debugger
         pokemonService.removeFromCollection(id)
       },
       pokemon: computed(() => props.pokeProp)
