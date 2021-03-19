@@ -36,48 +36,58 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, onUnmounted, reactive } from 'vue'
 import PokemonComponent from '../components/PokemonComponent'
 import { pokemonService } from '../services/PokemonService'
 import { AppState } from '../AppState'
 import { pokeApi } from '../services/AxiosService'
+import { logger } from '../utils/Logger'
 
 export default {
   name: 'Home',
   components: { PokemonComponent },
   setup() {
+    // NEEDED FOR SEARCH BAR
     const state = reactive({
       query: {
         name: ''
       }
     })
+
+    // INITIAL VALUES FOR OFFSET & LIMIT FROM API
+    const limit = 20
+    let offset = 0
+
+    const fetchData = async() => {
+      offset += 20
+      try {
+        const res = await pokeApi.get(`?offset=${offset}&limit=${limit}`)
+        const fetched = await Promise.all(res.data.results.map(async p => {
+          const record = await pokeApi.get(p.url)
+          return record
+        }))
+        AppState.pokemon = [...AppState.pokemon, ...fetched]
+      } catch (error) {
+        logger.error(error)
+      }
+    }
+
+    const handleScroll = () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        fetchData()
+      }
+    }
+
     onMounted(async() => {
+      window.addEventListener('scroll', handleScroll)
       await pokemonService.getPokemon()
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll)
     })
     return {
       state,
-      async next() {
-        const res = await pokeApi.get()
-        const nextUrl = res.data.next
-
-        const next = await pokeApi.get(nextUrl)
-        const pokemon = await Promise.all(next.data.results.map(async p => {
-          const pokeRecord = await pokeApi.get(p.url)
-          return pokeRecord
-        }))
-        AppState.pokemon = pokemon
-      },
-      async previous() {
-        const res = await pokeApi.get()
-        const prevUrl = res.data.previous
-
-        const previous = await pokeApi.get(prevUrl)
-        const pokemon = await Promise.all(previous.data.results.map(async p => {
-          const pokeRecord = await pokeApi.get(p.url)
-          return pokeRecord
-        }))
-        AppState.pokemon = pokemon
-      },
       pokemon: computed(() => AppState.pokemon.filter(p => p.data.name.toLowerCase().includes(state.query.name.toLowerCase())))
     }
   }
