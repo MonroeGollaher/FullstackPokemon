@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link :to="{ name: 'Home' }" class="nav-link">
+          <router-link :to="{ name: 'Home' }" class="nav-link text-dark">
             Home
           </router-link>
         </li>
@@ -43,13 +43,18 @@
               height="40"
               class="rounded-circle"
             />
-            <span class="mx-3">{{ user.name }}</span>
+            <span class="mx-3 text-dark">{{ user.name }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
+            <router-link :to="{ name: 'Home' }">
+              <div class="list-group-item list-group-item-action hoverable">
+                Home
+              </div>
+            </router-link>
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item list-group-item-action hoverable">
                 Account
@@ -113,9 +118,6 @@ export default {
 }
 a:hover {
   text-decoration: none;
-}
-.nav-link{
-  text-transform: uppercase;
 }
 .nav-item .nav-link.router-link-exact-active{
   color: var(--primary);

@@ -1,8 +1,13 @@
 <template>
   <div class="about text-center container-fluid">
-    <h1>Welcome, {{ account.name }}!</h1>
     <img class="rounded-circle" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+    <h1 class="display-4">
+      Welcome, {{ account.name }}!
+    </h1>
+    <!-- <p>{{ account.email }}</p> -->
+    <h1 class="display-4 p-3">
+      My Pokemon:
+    </h1>
     <div class="row justify-content-center">
       <user-pokemon-component v-for="p in pokemon" :key="p" :poke-prop="p" />
     </div>

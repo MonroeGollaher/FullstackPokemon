@@ -1,5 +1,5 @@
 <template>
-  <div class="user-pokemon-component container-fluid">
+  <div class="user-pokemon-component">
     <div class="card-container">
       <div class="pokeCard">
         <div class="front-card" :style="'background-color: '+bgColor()+'' ">

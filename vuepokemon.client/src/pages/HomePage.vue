@@ -24,14 +24,6 @@
     <div class="row justify-content-center">
       <pokemon-component v-for="p in pokemon" :key="p" :poke-prop="p" />
     </div>
-    <div class="row">
-      <button class="btn" @click="previous()">
-        Previous
-      </button>
-      <button class="btn" @click="next()">
-        Next
-      </button>
-    </div>
   </div>
 </template>
 
