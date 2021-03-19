@@ -19,13 +19,9 @@
             >
               Add to Collection
             </button>
-            <div class="bar">
-              <p class="bar-name"></p>
-              <!-- <div class="bar-wrap">
-                <div class="points" :style="'width: '+pokemon.data.stats.map(s => s.base_stat)+''">
-                </div>
-              </div>
-              <span><p>{{ pokemon.data.stats.map(s => s.base_stat) }}</p></span> -->
+            <div class="">
+              <p>{{ pokemon.data.stats.map(s => s.stat.name) }}</p>
+              <p>{{ pokemon.data.stats.map(s => s.base_stat) }}</p>
             </div>
           </div>
         </div>
@@ -83,7 +79,6 @@ export default {
       },
       addToCollection(pokemon, id) {
         pokemonService.addToCollection(pokemon, id)
-        console.log(pokemon, id)
       },
       pokemon: computed(() => props.pokeProp)
     }
