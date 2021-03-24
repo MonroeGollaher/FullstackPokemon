@@ -1,5 +1,5 @@
 <template>
-  <div class="about text-center container-fluid">
+  <div class="about text-center container-fluid text-light">
     <img class="rounded-circle" :src="account.picture" alt="" />
     <h1 class="display-4">
       Welcome, {{ account.name }}!

@@ -6,7 +6,9 @@
           <div class="img-container">
             <img :src="pokemon.sprites.other['official-artwork'].front_default" alt="" class="img-fluid">
           </div>
-          <h4>#{{ pokemon.id }}</h4>
+          <h4 class="rank">
+            #{{ pokemon.id }}
+          </h4>
           <h4>{{ pokemon.name }}</h4>
           <h4>{{ pokemon.types[0].type.name }}</h4>
         </div>
